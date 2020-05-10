@@ -1,6 +1,6 @@
 var Discord = require('discord.js');
 var auth = require('./contracauth.json');
-var contractionsList = require('./contractions_dictionary.json');
+var contract = require('contractions');
 
 // Initialize Discord Bot
 var bot = new Discord.Client();
@@ -15,18 +15,9 @@ bot.on('ready', function (evt)
 bot.on('message;,message =>
 {
 	//code to do stuff here
-	let phrase = contractionsList.phrase;
-	let contraction = contractionsList.contract;
-	var text = message.content; //make text contain the message contents
-	text = text.toLowerCase(); //convert mesage to lowercase for prossessing
-	for (var i = 0; i < phrase.length; i++) // for all contractions in data base
-	{
-		if(text.indexOf(phrase[i] != -1)
-		{
-			text = text.replace(phrase[i],contraction[i]); //do replacement
-			i = i-1; //set loop to do rescan for word in case of multiple aperinces.
-		}
-	}
+	var text = message.content;
+	var context = contract.contract(text);
+	if (text != context)
 	message.channel.send(text);
 }
 var cleanupFn = function cleanup()
