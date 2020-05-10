@@ -1,5 +1,6 @@
 var Discord = require('discord.js');
 var auth = require('./contracauth.json');
+var contractionsList = require('./contractions_dictionary.json');
 
 // Initialize Discord Bot
 var bot = new Discord.Client();
@@ -14,8 +15,8 @@ bot.on('ready', function (evt)
 bot.on('message;,message =>
 {
 	//code to do stuff here
-	let phrase = ["phases"]; //list of phases with contractions
-	let contraction = ["contractions"]; //list of contrations
+	let phrase = contractionsList.phrase;
+	let contraction = contractionsList.contract;
 	var text = message.content; //make text contain the message contents
 	text = text.toLowerCase(); //convert mesage to lowercase for prossessing
 	for (var i = 0; i < phrase.length; i++) // for all contractions in data base
@@ -28,7 +29,7 @@ bot.on('message;,message =>
 	}
 	message.channel.send(text);
 }
-var cleanupFn = function cleanup() 
+var cleanupFn = function cleanup()
 {
 	console.log("Logging off");
 	bot.destroy();
